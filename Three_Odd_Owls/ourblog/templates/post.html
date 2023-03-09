@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+    /* Set the text color */
+    h2 a {
+        color: rgb(194, 194, 194);
+    }
+    
+    /* Set the background color */
+    body {
+        background-color: rgb(122, 122, 122);
+    }
+</style>
+<h3>{{ post.title }}</h3>
+<h6> on {{ post.date }}</h6>
+<div class="container">
+    {{ post.body|safe|linebreaks}}
+</div>
+<br><br>
+<h3>Comments</h3>
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'post_detail' pk=post.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="post_pk" value="{{ post.pk }}">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% else %}
+<p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+{% endif %}
+{% for comment in comments %}
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">{{ comment.body }}</p>
+            <p class="card-subtitle">{{ comment.author.username }} on {{ comment.created_on }}</p>
+        </div>
+    </div>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+{% endblock %}

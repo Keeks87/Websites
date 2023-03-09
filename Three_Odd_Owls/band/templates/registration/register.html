@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<style>
+  /* Set the text color */
+  h2 a {
+      color: rgb(194, 194, 194);
+  }
+  
+  /* Set the background color */
+  body {
+      background-color: rgb(122, 122, 122);
+  }
+</style>
+  <h2>Register</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Register</button>
+  </form>
+{% endblock %}

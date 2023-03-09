@@ -1,0 +1,46 @@
+{% extends "index.html" %}
+
+{% block content %}
+<style>
+    /* Set the text color */
+    h2 a {
+        color: rgb(194, 194, 194);
+    }
+    
+    /* Set the background color */
+    body {
+        background-color: rgb(122, 122, 122);
+    }
+</style>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="blog-posts">
+          {% for post in object_list %}
+            <div class="blog-post">
+              <h2 class="blog-post-title"><a href="/ourblog/{{ post.id }}">{{ post.title }}</a></h2>
+              <p class="blog-post-meta">{{ post.date|date:"F d, Y" }}</p>
+              <p>{{ post.content }}</p>
+            </div>
+          {% endfor %}
+        </div><!-- /.blog-posts -->
+      </div><!-- /.col-md-8 -->
+      <div class="col-md-4">
+        <div class="sidebar">
+          <h4>Categories</h4>
+          <ul>
+            {% for category in categories %}
+              <li><a href="#">{{ category }}</a></li>
+            {% endfor %}
+          </ul>
+          <h4>Recent Posts</h4>
+          <ul>
+            {% for post in recent_posts %}
+              <li><a href="/ourblog/{{ post.id }}">{{ post.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div><!-- /.sidebar -->
+      </div><!-- /.col-md-4 -->
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+{% endblock %}
